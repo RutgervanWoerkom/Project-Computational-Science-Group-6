@@ -1,8 +1,13 @@
-import numpy as np
-import matplotlib.pyplot as plt
 import cv2
 import random
+import numpy as np
+import matplotlib.pyplot as plt
+import os
 import pandas as pd
+
+from helpfiles import *
+from IPython.display import clear_output
+from matplotlib.pyplot import figure
 
 def construct_mask(data, dim_x, dim_y, save=False):
     """
@@ -170,3 +175,58 @@ def construct_density_map(data, dim_x, dim_y, margin=0, save=False):
     np.save("../../datasets/processed/australia_vegetation", data) if save is True else False                 
                     
     return density_map
+
+def get_data(folder, name):
+    return np.genfromtxt(folder + name, skip_header=6, skip_footer=18)
+
+def show_date(string):
+    return f'{string[6:8]}-{string[4:6]}-{string[0:4]}'
+
+def animate_temperature(dim_x, dim_y, mask=False):
+    """
+    """
+    folder = "../../datasets/raw/temp/"
+    days = sorted(os.listdir(folder))
+    
+    for day in days:
+        data = get_data(folder, day)
+        temperature_image = construct_temperature(data, dim_x, dim_y, True, mask)
+    
+        figure(num=None, figsize=(16, 16))
+        plt.imshow(temperature_image, cmap='plasma', interpolation='nearest', origin='lower', vmin=0, vmax=50)
+        plt.title(show_date(day))
+        plt.colorbar()
+        plt.show()
+        clear_output(wait=True)
+    return
+
+def temperature(day, dim_x, dim_y):
+    folder = "../../datasets/raw/temp/"
+    days = sorted(os.listdir(folder)) 
+    data = get_data(folder, days[day])    
+    return construct_temperature(data, 1250, 1000, mask)
+
+def animate_precipitation(dim_x, dim_y, mask=False):
+    """
+    """
+    folder = "../../datasets/raw/rain/"
+    days = sorted(os.listdir(folder))
+    
+    for day in days:
+        data = get_data(folder, day)
+        rain_image = construct_precipitation(data, 1250, 1000, mask)
+    
+        figure(num=None, figsize=(16, 16))
+        plt.imshow(rain_image, cmap='plasma', interpolation='nearest', origin='lower')
+        plt.title(show_date(day))
+        plt.colorbar()
+        plt.show()
+        clear_output(wait=True)
+    return
+
+def precipitation(day, dim_x, dim_y):
+    folder = "../../datasets/raw/rain/"
+    days = sorted(os.listdir(folder))
+    
+    data = get_data(folder, days[day])
+    return construct_precipitation(data, 1250, 1000, mask)
