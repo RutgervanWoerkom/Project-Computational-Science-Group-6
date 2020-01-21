@@ -48,6 +48,29 @@ def construct_vegetation(data, dim_x, dim_y, save=False):
     np.save("../../datasets/processed/australia_vegetation", data) if save is True else False
     return data
 
+def construct_height(data, dim_x, dim_y, mask=False):
+    """
+    height scaled between 0.0 and 1.0
+    The actual height is 0 and 2228
+    """
+    
+    print(np.shape(data[:,:,0]))
+    data = data[:,:,0]
+    data = np.flip(data, 0)
+    
+    # rescale bottom top
+    data = data[60:-106 , : ]
+    # add ocean to sides
+    shape = np.shape(data)
+    data = np.concatenate((np.zeros((shape[0], 41)), data, np.zeros((shape[0], 12))), 1)
+    
+    data = cv2.resize(data, (dim_x, dim_y), interpolation=cv2.INTER_NEAREST)
+
+    if mask is not False:
+        data = np.ma.masked_where(mask == 0, data)
+
+    return data
+
 def construct_precipitation(data, dim_x, dim_y, mask=False):
     """
     Constructs a precipitation image for specified dimensions with an optional mask image.
