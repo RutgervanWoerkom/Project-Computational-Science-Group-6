@@ -200,21 +200,21 @@ def animate_temperature(dim_x, dim_y, mask=False):
         clear_output(wait=True)
     return
 
-def temperature(day, dim_x, dim_y):
-    folder = "../../datasets/raw/temp/"
+def temperature(day, dim_x, dim_y, mask=False):
+    folder = "../datasets/raw/temp/"
     days = sorted(os.listdir(folder)) 
     data = get_data(folder, days[day])    
-    return construct_temperature(data, 1250, 1000, mask)
+    return construct_temperature(data, dim_x, dim_y, mask)
 
 def animate_precipitation(dim_x, dim_y, mask=False):
     """
     """
-    folder = "../../datasets/raw/rain/"
+    folder = "../datasets/raw/rain/"
     days = sorted(os.listdir(folder))
     
     for day in days:
         data = get_data(folder, day)
-        rain_image = construct_precipitation(data, 1250, 1000, mask)
+        rain_image = construct_precipitation(data, dim_x, dim_y, mask)
     
         figure(num=None, figsize=(16, 16))
         plt.imshow(rain_image, cmap='plasma', interpolation='nearest', origin='lower')
@@ -224,9 +224,9 @@ def animate_precipitation(dim_x, dim_y, mask=False):
         clear_output(wait=True)
     return
 
-def precipitation(day, dim_x, dim_y):
-    folder = "../../datasets/raw/rain/"
+def precipitation(day, dim_x, dim_y, mask=False):
+    folder = "../datasets/raw/rain/"
     days = sorted(os.listdir(folder))
     
     data = get_data(folder, days[day])
-    return construct_precipitation(data, 1250, 1000, mask)
+    return construct_precipitation(data, dim_x, dim_y, mask)
