@@ -48,6 +48,29 @@ def construct_vegetation(data, dim_x, dim_y, save=False):
     np.save("../../datasets/processed/australia_vegetation", data) if save is True else False
     return data
 
+def construct_height(data, dim_x, dim_y, mask=False):
+    """
+    height scaled between 0.0 and 1.0
+    The actual height is 0 and 2228
+    """
+    
+    print(np.shape(data[:,:,0]))
+    data = data[:,:,0]
+    data = np.flip(data, 0)
+    
+    # rescale bottom top
+    data = data[60:-106 , : ]
+    # add ocean to sides
+    shape = np.shape(data)
+    data = np.concatenate((np.zeros((shape[0], 41)), data, np.zeros((shape[0], 12))), 1)
+    
+    data = cv2.resize(data, (dim_x, dim_y), interpolation=cv2.INTER_NEAREST)
+
+    if mask is not False:
+        data = np.ma.masked_where(mask == 0, data)
+
+    return data
+
 def construct_precipitation(data, dim_x, dim_y, mask=False):
     """
     Constructs a precipitation image for specified dimensions with an optional mask image.
@@ -200,11 +223,11 @@ def animate_temperature(dim_x, dim_y, mask=False):
         clear_output(wait=True)
     return
 
-def temperature(day, dim_x, dim_y):
+def temperature(day, dim_x, dim_y, mask=False):
     folder = "../../datasets/raw/temp/"
     days = sorted(os.listdir(folder)) 
     data = get_data(folder, days[day])    
-    return construct_temperature(data, 1250, 1000, mask)
+    return construct_temperature(data, dim_x, dim_y, mask)
 
 def animate_precipitation(dim_x, dim_y, mask=False):
     """
@@ -214,7 +237,7 @@ def animate_precipitation(dim_x, dim_y, mask=False):
     
     for day in days:
         data = get_data(folder, day)
-        rain_image = construct_precipitation(data, 1250, 1000, mask)
+        rain_image = construct_precipitation(data, dim_x, dim_y, mask)
     
         figure(num=None, figsize=(16, 16))
         plt.imshow(rain_image, cmap='plasma', interpolation='nearest', origin='lower')
@@ -224,9 +247,9 @@ def animate_precipitation(dim_x, dim_y, mask=False):
         clear_output(wait=True)
     return
 
-def precipitation(day, dim_x, dim_y):
+def precipitation(day, dim_x, dim_y, mask=False):
     folder = "../../datasets/raw/rain/"
     days = sorted(os.listdir(folder))
     
     data = get_data(folder, days[day])
-    return construct_precipitation(data, 1250, 1000, mask)
+    return construct_precipitation(data, dim_x, dim_y, mask)
