@@ -1,11 +1,8 @@
-import cv2
-import random
 import numpy as np
 import matplotlib.pyplot as plt
-import os
+import cv2
+import random
 import pandas as pd
-from IPython.display import clear_output
-from matplotlib.pyplot import figure
 
 def construct_mask(data, dim_x, dim_y, save=False):
     """
@@ -44,30 +41,6 @@ def construct_vegetation(data, dim_x, dim_y, save=False):
     data = cv2.resize(data, (dim_x, dim_y), interpolation=cv2.INTER_NEAREST)
         
     np.save("../../datasets/processed/australia_vegetation", data) if save is True else False
-    return data
-
-def construct_height(dim_x, dim_y, mask=False):
-    """
-    height scaled between 0.0 and 1.0
-    The actual height is 0 and 2228
-    """
-    
-    data = cv2.imread("../datasets/raw/height/australia_heightmap.jpg", cv2.COLOR_BGR2GRAY)
-    
-    data = data[:,:,0]
-    data = np.flip(data, 0)
-    
-    # rescale bottom top
-    data = data[60:-106 , : ]
-    # add ocean to sides
-    shape = np.shape(data)
-    data = np.concatenate((np.zeros((shape[0], 41)), data, np.zeros((shape[0], 12))), 1)
-    
-    data = cv2.resize(data, (dim_x, dim_y), interpolation=cv2.INTER_NEAREST)
-
-    if mask is not False:
-        data = np.ma.masked_where(mask == 0, data)
-
     return data
 
 def construct_precipitation(data, dim_x, dim_y, mask=False):
@@ -116,7 +89,7 @@ def normalize_coordinates(input_data, x_scale, y_scale):
     lat = input_data.latitude
     lon = input_data.longitude
     
-    raw_data = pd.read_csv("../datasets/raw/fire/fire_nrt_V1_95405.csv")
+    raw_data = pd.read_csv("../../datasets/raw/fire/fire_nrt_V1_95405.csv")
 
     max_lat = max(raw_data.latitude)
     min_lat = min(raw_data.latitude)
@@ -194,61 +167,6 @@ def construct_density_map(data, dim_x, dim_y, margin=0, save=False):
                 else:
                     density_map[row, col] = 2
                     
-    np.save("../datasets/processed/australia_vegetation", data) if save is True else False                 
+    np.save("../../datasets/processed/australia_vegetation", data) if save is True else False                 
                     
     return density_map
-
-def get_data(folder, name):
-    return np.genfromtxt(folder + name, skip_header=6, skip_footer=18)
-
-def show_date(string):
-    return f'{string[6:8]}-{string[4:6]}-{string[0:4]}'
-
-def animate_temperature(dim_x, dim_y, mask=False):
-    """
-    """
-    folder = "../datasets/raw/temp/"
-    days = sorted(os.listdir(folder))
-    
-    for day in days:
-        data = get_data(folder, day)
-        temperature_image = construct_temperature(data, dim_x, dim_y, True, mask)
-    
-        figure(num=None, figsize=(16, 16))
-        plt.imshow(temperature_image, cmap='plasma', interpolation='nearest', origin='lower', vmin=0, vmax=50)
-        plt.title(show_date(day))
-        plt.colorbar()
-        plt.show()
-        clear_output(wait=True)
-    return
-
-def temperature(day, dim_x, dim_y, mask=False):
-    folder = "../datasets/raw/temp/"
-    days = sorted(os.listdir(folder)) 
-    data = get_data(folder, days[day])    
-    return construct_temperature(data, dim_x, dim_y, mask)
-
-def animate_precipitation(dim_x, dim_y, mask=False):
-    """
-    """
-    folder = "../datasets/raw/rain/"
-    days = sorted(os.listdir(folder))
-    
-    for day in days:
-        data = get_data(folder, day)
-        rain_image = construct_precipitation(data, dim_x, dim_y, mask)
-    
-        figure(num=None, figsize=(16, 16))
-        plt.imshow(rain_image, cmap='plasma', interpolation='nearest', origin='lower')
-        plt.title(show_date(day))
-        plt.colorbar()
-        plt.show()
-        clear_output(wait=True)
-    return
-
-def precipitation(day, dim_x, dim_y, mask=False):
-    folder = "../datasets/raw/rain/"
-    days = sorted(os.listdir(folder))
-    
-    data = get_data(folder, days[day])
-    return construct_precipitation(data, dim_x, dim_y, mask)
