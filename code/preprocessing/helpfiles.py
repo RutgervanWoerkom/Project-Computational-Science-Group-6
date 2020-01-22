@@ -117,7 +117,7 @@ def normalize_coordinates(input_data, x_scale, y_scale):
     lat = input_data.latitude
     lon = input_data.longitude
     
-    raw_data = pd.read_csv("../../datasets/raw/fire/fire_nrt_V1_95405.csv")
+    raw_data = pd.read_csv("../datasets/raw/fire/fire_nrt_V1_95405.csv")
 
     max_lat = max(raw_data.latitude)
     min_lat = min(raw_data.latitude)
@@ -195,7 +195,7 @@ def construct_density_map(data, dim_x, dim_y, margin=0, save=False):
                 else:
                     density_map[row, col] = 2
                     
-    np.save("../../datasets/processed/australia_vegetation", data) if save is True else False                 
+    np.save("../datasets/processed/australia_vegetation", data) if save is True else False                 
                     
     return density_map
 
@@ -208,7 +208,7 @@ def show_date(string):
 def animate_temperature(dim_x, dim_y, mask=False):
     """
     """
-    folder = "../../datasets/raw/temp/"
+    folder = "../datasets/raw/temp/"
     days = sorted(os.listdir(folder))
     
     for day in days:
@@ -224,7 +224,7 @@ def animate_temperature(dim_x, dim_y, mask=False):
     return
 
 def temperature(day, dim_x, dim_y, mask=False):
-    folder = "../../datasets/raw/temp/"
+    folder = "../datasets/raw/temp/"
     days = sorted(os.listdir(folder)) 
     data = get_data(folder, days[day])    
     return construct_temperature(data, dim_x, dim_y, mask)
@@ -232,7 +232,7 @@ def temperature(day, dim_x, dim_y, mask=False):
 def animate_precipitation(dim_x, dim_y, mask=False):
     """
     """
-    folder = "../../datasets/raw/rain/"
+    folder = "../datasets/raw/rain/"
     days = sorted(os.listdir(folder))
     
     for day in days:
@@ -248,7 +248,7 @@ def animate_precipitation(dim_x, dim_y, mask=False):
     return
 
 def precipitation(day, dim_x, dim_y, mask=False):
-    folder = "../../datasets/raw/rain/"
+    folder = "../datasets/raw/rain/"
     days = sorted(os.listdir(folder))
     
     data = get_data(folder, days[day])
