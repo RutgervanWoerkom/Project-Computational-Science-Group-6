@@ -4,8 +4,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 import pandas as pd
-
-from helpfiles import *
 from IPython.display import clear_output
 from matplotlib.pyplot import figure
 
@@ -48,13 +46,14 @@ def construct_vegetation(data, dim_x, dim_y, save=False):
     np.save("../../datasets/processed/australia_vegetation", data) if save is True else False
     return data
 
-def construct_height(data, dim_x, dim_y, mask=False):
+def construct_height(dim_x, dim_y, mask=False):
     """
     height scaled between 0.0 and 1.0
     The actual height is 0 and 2228
     """
     
-    print(np.shape(data[:,:,0]))
+    data = cv2.imread("../datasets/raw/height/australia_heightmap.jpg", cv2.COLOR_BGR2GRAY)
+    
     data = data[:,:,0]
     data = np.flip(data, 0)
     
@@ -224,7 +223,7 @@ def animate_temperature(dim_x, dim_y, mask=False):
     return
 
 def temperature(day, dim_x, dim_y, mask=False):
-    folder = "../../datasets/raw/temp/"
+    folder = "../datasets/raw/temp/"
     days = sorted(os.listdir(folder)) 
     data = get_data(folder, days[day])    
     return construct_temperature(data, dim_x, dim_y, mask)
@@ -248,7 +247,7 @@ def animate_precipitation(dim_x, dim_y, mask=False):
     return
 
 def precipitation(day, dim_x, dim_y, mask=False):
-    folder = "../../datasets/raw/rain/"
+    folder = "../datasets/raw/rain/"
     days = sorted(os.listdir(folder))
     
     data = get_data(folder, days[day])
