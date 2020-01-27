@@ -116,7 +116,7 @@ def normalize_coordinates(input_data, x_scale, y_scale):
     lat = input_data.latitude
     lon = input_data.longitude
     
-    raw_data = pd.read_csv("../datasets/raw/fire/fire_nrt_V1_95405.csv")
+    raw_data = pd.read_csv("../../datasets/raw/fire/fire_nrt_V1_95405.csv")
 
     max_lat = max(raw_data.latitude)
     min_lat = min(raw_data.latitude)

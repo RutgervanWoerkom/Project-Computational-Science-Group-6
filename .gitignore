@@ -1,5 +1,7 @@
 ## Folders to be ignored
 code/rendered/*
 code/rendered_videos/*
+code/.ipynb_checkpoints/*
+datasets/processed/*
 
 
