@@ -1,5 +1,5 @@
 # Modeling Australian forest fire spreading using cellular automata
-In past months it was hard to miss, big parts of Australia are on fire threatening nature, humans and wildlife. Altogether, this makes it important and interesting to investigate how wildfires spread. The numerical method used was 2D cellular automata. The model differentiated between the cell states; empty, tree and fire. The rules for fire to spread to neighbouring cells were based on the following environmental factors:
+In past months it was hard to miss, big parts of Australia are on fire threatening nature, humans and wildlife. Altogether, this makes it important and interesting to investigate how wildfires spread. The numerical method used was 2D cellular automata. The model differentiated between the cell states; water, land, vegetation-unaffected, vegetation-freshly lit, vegetation-established fire, vegetation-glowing embers, vegetation-moderately affected, vegetation-strongly affected, and vegetation-ash. The rules for fire to spread to neighbouring cells were based on the following environmental factors:
 - Vegetation density
 - Height,
 - Temperature
