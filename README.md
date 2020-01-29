@@ -24,7 +24,7 @@ If not, the packages can be installed using
 pip3 install <package name>
 ```
 ## Usage
-1. Open **src/main.ipynb** to configure and run the model.
+1. Open **main.ipynb** to configure and run the model.
 2. (Optional) Replace environmental factors in **datasets/...** to alter the validation.
 ## Authors
 - Bob Leijnse
