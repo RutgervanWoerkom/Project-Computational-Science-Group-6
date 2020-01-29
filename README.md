@@ -25,9 +25,9 @@ pip3 install <package name>
 ```
 ## Usage
 1. Clone this git repository.
-2. Download [this](https://drive.google.com/open?id=1LBQqKTt6GcZKEYzCz8KUSwjUw9FQpF39) .zip file and extract to the folder *datasets/processed*
-3. Open *main.ipynb* to configure and run the model.
-4. (Optional) Replace environmental factors in *datasets/...* to alter the validation.
+2. Download [this](https://drive.google.com/open?id=1LBQqKTt6GcZKEYzCz8KUSwjUw9FQpF39) .zip file and extract to the folder **datasets/processed**
+3. Open **main.ipynb** to configure and run the model.
+4. (Optional) Replace environmental factors in **datasets/...** to alter the validation.
 ## Authors
 - Bob Leijnse
 - Midas Amersfoort
