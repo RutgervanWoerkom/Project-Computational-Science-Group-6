@@ -8,7 +8,7 @@ In past months it was hard to miss, big parts of Australia are on fire threateni
 
 The model was validated by satellite fire data for October, November and December 2019 provided by NASA. For every day in this period, when a fire started in South-East Australia, the model initiated a fire at that specific location.
 ## Prerequisites
-The code is written and tested in
+The code is written and tested in:
 ```python
 Python 3.7
 ```
