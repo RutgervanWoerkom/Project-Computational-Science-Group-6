@@ -18,6 +18,7 @@ To run the code make sure the following python packages are installed:
 - numpy
 - matplotlib
 - ffmpeg-python
+
 If not, the packages can be installed using
 ```python
 pip3 install <package name>
