@@ -34,10 +34,10 @@ pip3 install <package name>
 ## Support
 For question or help please mail to [bob.leijnse@student.uva.nl](mailto:bob.leijnse@student.uva.nl) for additional information.
 
+## License
+[GNU LGPLv3](https://choosealicense.com/licenses/mit)
+
 ## Acknowledgments
 This project is inspired by:
 - http://www.eddaardvark.co.uk/v2/automata/forest.html#picture for providing a framework.
 - https://www.sciencedirect.com/science/article/pii/S0304380096019424 for providing a scientific justification.
-
-## License
-[GNU LGPLv3](https://choosealicense.com/licenses/mit)
