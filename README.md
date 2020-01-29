@@ -1,19 +1,18 @@
 # Modeling Australian forest fire spreading using cellular automata
+In past months it was hard to miss, big parts of Australia are on fire threatening nature, humans and wildlife. Altogether, this makes it important and interesting to investigate how wildfires spread. The numerical method used was 2D cellular automata. The model differentiated between the cell states; empty, tree and fire. The rules for fire to spread to neighbouring cells were based on the following environmental factors:
+- Vegetation density
+- Height,
+- Temperature
+- Rain
+- Wind
 
-In past months it was hard to miss, big parts of Australia are on fire threatening nature, humans and wildlife. Altogether, this makes it important and interesting to investigate how wildfires spread. In this project forest fires are simulated using cellular automata and influenced by the set of environmental factors:
-- vegetation density
-- height,
-- temperature
-- rain
-- wind
-
+The model was validated by satellite fire data for October, November and December 2019 provided by NASA. For every day in this period, when a fire started in South-East Australia, the model initiated a fire at that specific location.
 ## Prerequisites
 The code is written and tested in
 ```python
 Python 3.7
 ```
 To run the code make sure the following python packages are installed:
-
 - IPython
 - jupyterlab
 - numpy
@@ -24,19 +23,15 @@ pip3 install <package name>
 ```
 ## Usage
 1. Open **src/main.ipynb** to configure and run the model.
-2. (Optional) Replace environmental factors in **datasets/...** to alter the model.
-
+2. (Optional) Replace environmental factors in **datasets/...** to alter the validation.
 ## Authors
 - Bob Leijnse
 - Midas Amersfoort
 - Rutger van Woerkom
-
 ## Support
 For question or help please mail to [bob.leijnse@student.uva.nl](mailto:bob.leijnse@student.uva.nl) for additional information.
-
 ## License
 [GNU LGPLv3](https://choosealicense.com/licenses/mit)
-
 ## Acknowledgments
 This project is inspired by:
 - http://www.eddaardvark.co.uk/v2/automata/forest.html#picture for providing a framework.
